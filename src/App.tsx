@@ -8,6 +8,8 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Imprint from "./pages/Imprint";
+import Privacy from "./pages/Privacy";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +23,8 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/imprint" element={<Imprint />} />
+              <Route path="/privacy" element={<Privacy />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

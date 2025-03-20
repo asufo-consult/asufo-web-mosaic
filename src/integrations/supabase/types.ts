@@ -9,7 +9,206 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      contact_submissions: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          language: string
+          message: string
+          name: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          language?: string
+          message: string
+          name: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          language?: string
+          message?: string
+          name?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      newsletter_subscribers: {
+        Row: {
+          active: boolean
+          created_at: string
+          email: string
+          id: string
+          language: string
+          name: string | null
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          email: string
+          id?: string
+          language?: string
+          name?: string | null
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          email?: string
+          id?: string
+          language?: string
+          name?: string | null
+        }
+        Relationships: []
+      }
+      project_facts: {
+        Row: {
+          fact: string
+          id: string
+          language: string
+          project_id: string
+        }
+        Insert: {
+          fact: string
+          id?: string
+          language?: string
+          project_id: string
+        }
+        Update: {
+          fact?: string
+          id?: string
+          language?: string
+          project_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_facts_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      projects: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string
+          id: string
+          image: string | null
+          language: string
+          link: string | null
+          order_index: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description: string
+          id?: string
+          image?: string | null
+          language?: string
+          link?: string | null
+          order_index?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string
+          id?: string
+          image?: string | null
+          language?: string
+          link?: string | null
+          order_index?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string
+          icon: string
+          id: string
+          language: string
+          order_index: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description: string
+          icon: string
+          id?: string
+          language?: string
+          order_index?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string
+          icon?: string
+          id?: string
+          language?: string
+          order_index?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      solutions: {
+        Row: {
+          active: boolean
+          color: string
+          created_at: string
+          description: string
+          icon: string
+          id: string
+          language: string
+          order_index: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          color?: string
+          created_at?: string
+          description: string
+          icon: string
+          id?: string
+          language?: string
+          order_index?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          color?: string
+          created_at?: string
+          description?: string
+          icon?: string
+          id?: string
+          language?: string
+          order_index?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
