@@ -12,6 +12,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
+import PageHero from '@/components/PageHero';
 
 const Portfolio = () => {
   const { t } = useLanguage();
@@ -20,49 +21,49 @@ const Portfolio = () => {
   const projects = [
     {
       id: 1,
-      title: t('portfolio.projects.p1.title', 'E-commerce Platform'),
-      description: t('portfolio.projects.p1.description', 'A comprehensive e-commerce solution with advanced product filtering, secure payments, and customer accounts.'),
-      image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
+      title: t('portfolio.projects.p1.title'),
+      description: t('portfolio.projects.p1.description'),
+      image: 'https://assets.iderdex.com/newwork/new-work-1.jpg',
       category: 'web',
       link: '#',
     },
     {
       id: 2,
-      title: t('portfolio.projects.p2.title', 'Corporate Rebrand'),
-      description: t('portfolio.projects.p2.description', 'Complete brand identity redesign including logo, website, and marketing materials for a global corporation.'),
-      image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625',
+      title: t('portfolio.projects.p2.title'),
+      description: t('portfolio.projects.p2.description'),
+      image: 'https://assets.iderdex.com/newwork/new-work-2.jpg',
       category: 'branding',
       link: '#',
     },
     {
       id: 3,
-      title: t('portfolio.projects.p3.title', 'Mobile Banking App'),
-      description: t('portfolio.projects.p3.description', 'Secure and user-friendly mobile banking application with biometric authentication and real-time notifications.'),
-      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475',
+      title: t('portfolio.projects.p3.title'),
+      description: t('portfolio.projects.p3.description'),
+      image: 'https://assets.iderdex.com/newwork/new-work-3.jpg',
       category: 'mobile',
       link: '#',
     },
     {
       id: 4,
-      title: t('portfolio.projects.p4.title', 'Healthcare Portal'),
-      description: t('portfolio.projects.p4.description', 'HIPAA-compliant patient portal with appointment scheduling, medical records access, and secure messaging.'),
-      image: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1',
+      title: t('portfolio.projects.p4.title'),
+      description: t('portfolio.projects.p4.description'),
+      image: 'https://assets.iderdex.com/newwork/new-work-4.jpg',
       category: 'web',
       link: '#',
     },
     {
       id: 5,
-      title: t('portfolio.projects.p5.title', 'Digital Marketing Campaign'),
-      description: t('portfolio.projects.p5.description', 'Integrated digital marketing campaign that increased lead generation by 150% for a B2B software company.'),
-      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6',
+      title: t('portfolio.projects.p5.title'),
+      description: t('portfolio.projects.p5.description'),
+      image: 'https://assets.iderdex.com/newwork/new-work-5.jpg',
       category: 'marketing',
       link: '#',
     },
     {
       id: 6,
-      title: t('portfolio.projects.p6.title', 'Educational Platform'),
-      description: t('portfolio.projects.p6.description', 'Interactive learning platform with course management, progress tracking, and certification for online education.'),
-      image: 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81',
+      title: t('portfolio.projects.p6.title'),
+      description: t('portfolio.projects.p6.description'),
+      image: 'https://assets.iderdex.com/newwork/new-work-6.jpg',
       category: 'web',
       link: '#',
     },
@@ -73,22 +74,22 @@ const Portfolio = () => {
       id: 1,
       name: 'Sarah Johnson',
       company: 'TechCorp Inc.',
-      quote: t('portfolio.testimonials.t1.quote', 'Working with asufo consult transformed our online presence. Their team delivered a website that exceeded our expectations and helped us increase our conversion rate by 45%.'),
-      image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625',
+      quote: t('portfolio.testimonials.t1.quote'),
+      image: 'https://assets.iderdex.com/newwork/new-work-7.jpg',
     },
     {
       id: 2,
       name: 'Michael Chen',
       company: 'GrowthLabs',
-      quote: t('portfolio.testimonials.t2.quote', 'Their expertise in digital marketing and AI integration has been invaluable to our business. We\'ve seen a significant improvement in our online visibility and customer engagement.'),
-      image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625',
+      quote: t('portfolio.testimonials.t2.quote'),
+      image: 'https://assets.iderdex.com/newwork/new-work-1.jpg',
     },
     {
       id: 3,
       name: 'Emma Williams',
       company: 'Retail Solutions',
-      quote: t('portfolio.testimonials.t3.quote', 'The e-commerce platform developed by asufo consult has revolutionized our online sales. The user-friendly interface and robust backend have made managing our store a breeze.'),
-      image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625',
+      quote: t('portfolio.testimonials.t3.quote'),
+      image: 'https://assets.iderdex.com/newwork/new-work-2.jpg',
     },
   ];
 
@@ -97,26 +98,19 @@ const Portfolio = () => {
       <Navbar />
       <main className="flex-grow pt-16">
         {/* Hero Section */}
-        <section className="bg-secondary/30 dark:bg-card/30 py-20 md:py-28">
-          <div className="section-container">
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                {t('portfolio.hero.title', 'Our Portfolio')}
-              </h1>
-              <p className="text-lg text-muted-foreground mb-8">
-                {t('portfolio.hero.subtitle', 'Showcasing our best work across various industries and technologies')}
-              </p>
-            </div>
-          </div>
-        </section>
+        <PageHero 
+          title={t('portfolio.hero.title')}
+          subtitle={t('portfolio.hero.subtitle')}
+          bgImageIndex={4}
+        />
 
         {/* Projects Section */}
         <section className="py-16 md:py-24">
           <div className="section-container">
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <h2 className="text-3xl font-bold mb-4">{t('portfolio.projects.title', 'Featured Projects')}</h2>
+              <h2 className="text-3xl font-bold mb-4">{t('portfolio.projects.title')}</h2>
               <p className="text-muted-foreground">
-                {t('portfolio.projects.subtitle', 'Browse our recent work and see how we help businesses achieve their goals')}
+                {t('portfolio.projects.subtitle')}
               </p>
             </div>
             
@@ -178,9 +172,9 @@ const Portfolio = () => {
         <section className="bg-secondary/30 dark:bg-card/30 py-16 md:py-24">
           <div className="section-container">
             <div className="text-center max-w-2xl mx-auto mb-16">
-              <h2 className="text-3xl font-bold mb-4">{t('portfolio.testimonials.title', 'Client Testimonials')}</h2>
+              <h2 className="text-3xl font-bold mb-4">{t('portfolio.testimonials.title')}</h2>
               <p className="text-muted-foreground">
-                {t('portfolio.testimonials.subtitle', 'What our clients say about working with us')}
+                {t('portfolio.testimonials.subtitle')}
               </p>
             </div>
             
@@ -215,9 +209,9 @@ const Portfolio = () => {
           <div className="section-container">
             <div className="metal-card p-8 md:p-12">
               <div className="text-center max-w-2xl mx-auto">
-                <h2 className="text-3xl font-bold mb-4">{t('portfolio.cta.title', 'Ready to start your project?')}</h2>
+                <h2 className="text-3xl font-bold mb-4">{t('portfolio.cta.title')}</h2>
                 <p className="text-muted-foreground mb-8">
-                  {t('portfolio.cta.description', 'Let\'s discuss how we can help you achieve your business goals with our expertise in digital solutions.')}
+                  {t('portfolio.cta.description')}
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                   <Button 
@@ -225,14 +219,14 @@ const Portfolio = () => {
                     className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 text-white"
                     onClick={() => window.location.href = '/contact'}
                   >
-                    {t('portfolio.cta.contact', 'Contact Us')}
+                    {t('portfolio.cta.contact')}
                   </Button>
                   <Button 
                     size="lg"
                     variant="outline"
                     onClick={() => window.location.href = 'https://tidycal.com'}
                   >
-                    {t('portfolio.cta.schedule', 'Schedule a Call')}
+                    {t('portfolio.cta.schedule')}
                   </Button>
                 </div>
               </div>
@@ -264,7 +258,7 @@ const ProjectCard = ({ project }) => {
           href={project.link} 
           className="inline-flex items-center text-primary font-medium group-hover:underline"
         >
-          {t('portfolio.viewProject', 'View Project')}
+          {t('portfolio.viewProject')}
           <ExternalLink className="ml-2 h-4 w-4" />
         </a>
       </div>

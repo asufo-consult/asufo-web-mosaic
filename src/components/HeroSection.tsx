@@ -9,9 +9,13 @@ const HeroSection: React.FC = () => {
   
   // Create an array of background images for rotation
   const backgroundImages = [
-    '/hero-1.jpg',
-    '/hero-2.jpg',
-    '/hero-3.jpg',
+    'https://assets.iderdex.com/newwork/new-work-1.jpg',
+    'https://assets.iderdex.com/newwork/new-work-2.jpg',
+    'https://assets.iderdex.com/newwork/new-work-3.jpg',
+    'https://assets.iderdex.com/newwork/new-work-4.jpg',
+    'https://assets.iderdex.com/newwork/new-work-5.jpg',
+    'https://assets.iderdex.com/newwork/new-work-6.jpg',
+    'https://assets.iderdex.com/newwork/new-work-7.jpg',
   ];
   
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
