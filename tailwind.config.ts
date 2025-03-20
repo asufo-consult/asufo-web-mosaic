@@ -57,6 +57,16 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Add metal color definition
+        metal: {
+          DEFAULT: "#8E9196", // Neutral gray color
+          hover: "#75767a",
+        },
+      },
+      boxShadow: {
+        // Define shadow-metal and shadow-metal-hover
+        metal: "0 4px 10px rgba(0, 0, 0, 0.05)",
+        "metal-hover": "0 10px 20px rgba(0, 0, 0, 0.1)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -72,10 +82,15 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "text-shimmer": {
+          from: { backgroundPosition: "200% 0" },
+          to: { backgroundPosition: "0 0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "text-shimmer": "text-shimmer 2.5s ease-out infinite",
       },
     },
   },
