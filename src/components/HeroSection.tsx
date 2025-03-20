@@ -4,9 +4,6 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-// Add framer-motion dependency
-<lov-add-dependency>framer-motion@latest</lov-add-dependency>
-
 const HeroSection: React.FC = () => {
   const { t } = useLanguage();
   
