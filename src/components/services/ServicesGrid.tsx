@@ -12,7 +12,7 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({ services, onServiceClick })
   console.log("Services in grid:", services);
   
   if (!services || services.length === 0) {
-    return <div className="py-8 text-center text-muted-foreground">No services found.</div>;
+    return <div className="py-8 text-center text-muted-foreground">No services found. Please add some services to the database.</div>;
   }
   
   return (
