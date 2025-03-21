@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
@@ -7,18 +7,33 @@ import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 import SolutionsGrid from '@/components/solutions/SolutionsGrid';
 import { Solution } from '@/components/solutions/SolutionCard';
 import { fetchSolutions } from '@/utils/supabaseQueries';
 
 const Solutions = () => {
   const { t, language } = useLanguage();
+  const { toast } = useToast();
   
   // Fetch solutions from Supabase
-  const { data: solutions = [], isLoading } = useQuery({
+  const { data: solutions = [], isLoading, error } = useQuery({
     queryKey: ['solutions', language],
     queryFn: () => fetchSolutions(language),
   });
+
+  useEffect(() => {
+    console.log("Fetched solutions:", solutions); // Debugging
+    
+    if (error) {
+      console.error("Error fetching solutions:", error);
+      toast({
+        title: "Error loading solutions",
+        description: "There was a problem loading the solutions. Please try again later.",
+        variant: "destructive",
+      });
+    }
+  }, [solutions, error, toast]);
 
   // Transform data to add example features for display
   const solutionsWithFeatures = solutions.map(solution => ({
@@ -56,7 +71,13 @@ const Solutions = () => {
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
               </div>
             ) : (
-              <SolutionsGrid solutions={solutionsWithFeatures} />
+              <>
+                {solutionsWithFeatures && solutionsWithFeatures.length > 0 ? (
+                  <SolutionsGrid solutions={solutionsWithFeatures} />
+                ) : (
+                  <div className="py-8 text-center text-muted-foreground">No solutions found.</div>
+                )}
+              </>
             )}
           </div>
         </section>

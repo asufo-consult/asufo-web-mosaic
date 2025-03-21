@@ -19,6 +19,11 @@ interface ServiceCardProps {
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ service, onServiceClick }) => {
   const { t } = useLanguage();
+  
+  // Debugging
+  console.log("Rendering service card:", service);
+  
+  // Make sure we have a valid icon, fallback to Sparkles if not found
   const IconComponent = IconMap[service.icon] || IconMap.Sparkles;
   const color = service.color || 'from-blue-600 to-blue-800 dark:from-blue-500 dark:to-blue-700';
   

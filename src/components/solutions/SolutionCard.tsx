@@ -19,6 +19,11 @@ interface SolutionCardProps {
 
 const SolutionCard: React.FC<SolutionCardProps> = ({ solution }) => {
   const { t } = useLanguage();
+  
+  // Debugging
+  console.log("Rendering solution card:", solution);
+  
+  // Make sure we have a valid icon, fallback to Sparkles if not found
   const IconComponent = IconMap[solution.icon] || IconMap.Sparkles;
   
   return (

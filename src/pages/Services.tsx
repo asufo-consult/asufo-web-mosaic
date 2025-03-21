@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
@@ -16,10 +16,23 @@ const Services = () => {
   const { toast } = useToast();
 
   // Fetch services from Supabase
-  const { data: services = [], isLoading } = useQuery({
+  const { data: services = [], isLoading, error } = useQuery({
     queryKey: ['services', language],
     queryFn: () => fetchServices(language),
   });
+
+  useEffect(() => {
+    console.log("Fetched services:", services); // Debugging
+    
+    if (error) {
+      console.error("Error fetching services:", error);
+      toast({
+        title: "Error loading services",
+        description: "There was a problem loading the services. Please try again later.",
+        variant: "destructive",
+      });
+    }
+  }, [services, error, toast]);
 
   const handleServiceClick = (serviceId: string) => {
     toast({
@@ -54,7 +67,13 @@ const Services = () => {
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
               </div>
             ) : (
-              <ServicesGrid services={services} onServiceClick={handleServiceClick} />
+              <>
+                {services && services.length > 0 ? (
+                  <ServicesGrid services={services} onServiceClick={handleServiceClick} />
+                ) : (
+                  <div className="py-8 text-center text-muted-foreground">No services found.</div>
+                )}
+              </>
             )}
           </div>
         </section>
