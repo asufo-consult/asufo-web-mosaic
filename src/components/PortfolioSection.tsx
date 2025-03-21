@@ -11,7 +11,7 @@ const PortfolioSection: React.FC = () => {
   const projects = [
     {
       title: 'E-Commerce Redesign',
-      image: '/portfolio-1.jpg',
+      image: 'https://assets.iderdex.com/newwork/new-work-1.jpg',
       description: 'Complete redesign of an e-commerce platform with focus on user experience and conversion optimization.',
       link: '#',
       facts: [
