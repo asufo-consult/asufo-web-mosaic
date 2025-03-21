@@ -60,7 +60,7 @@ const Navbar: React.FC = () => {
           {/* Right side: Book appointment, Theme toggle, Language toggle */}
           <div className="flex items-center space-x-4">
             <a 
-              href="https://tidycal.com" 
+              href="https://tidycal.com/blu7/30min-video-agilecoach" 
               target="_blank" 
               rel="noopener noreferrer"
               className="hidden lg:flex items-center text-sm font-medium btn-primary"
