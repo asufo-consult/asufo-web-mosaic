@@ -1,85 +1,34 @@
 
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { useQuery } from '@tanstack/react-query';
-import { CheckCircle, ArrowRight, Building, ShoppingBag, Briefcase, GraduationCap, HeartPulse, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import PageHero from '@/components/PageHero';
+import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import SolutionsGrid from '@/components/solutions/SolutionsGrid';
+import { Solution } from '@/components/solutions/SolutionCard';
+import { fetchSolutions } from '@/utils/supabaseQueries';
 
 const Solutions = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  
+  // Fetch solutions from Supabase
+  const { data: solutions = [], isLoading } = useQuery({
+    queryKey: ['solutions', language],
+    queryFn: () => fetchSolutions(language),
+  });
 
-  // In a real application, you would fetch this from your database
-  const industries = [
-    {
-      id: 1,
-      icon: <Building className="h-8 w-8" />,
-      title: t('solutions.industries.business.title'),
-      description: t('solutions.industries.business.description'),
-      features: [
-        t('solutions.industries.business.feature1'),
-        t('solutions.industries.business.feature2'),
-        t('solutions.industries.business.feature3'),
-      ],
-    },
-    {
-      id: 2,
-      icon: <ShoppingBag className="h-8 w-8" />,
-      title: t('solutions.industries.ecommerce.title'),
-      description: t('solutions.industries.ecommerce.description'),
-      features: [
-        t('solutions.industries.ecommerce.feature1'),
-        t('solutions.industries.ecommerce.feature2'),
-        t('solutions.industries.ecommerce.feature3'),
-      ],
-    },
-    {
-      id: 3,
-      icon: <Briefcase className="h-8 w-8" />,
-      title: t('solutions.industries.corporate.title'),
-      description: t('solutions.industries.corporate.description'),
-      features: [
-        t('solutions.industries.corporate.feature1'),
-        t('solutions.industries.corporate.feature2'),
-        t('solutions.industries.corporate.feature3'),
-      ],
-    },
-    {
-      id: 4,
-      icon: <GraduationCap className="h-8 w-8" />,
-      title: t('solutions.industries.education.title'),
-      description: t('solutions.industries.education.description'),
-      features: [
-        t('solutions.industries.education.feature1'),
-        t('solutions.industries.education.feature2'),
-        t('solutions.industries.education.feature3'),
-      ],
-    },
-    {
-      id: 5,
-      icon: <HeartPulse className="h-8 w-8" />,
-      title: t('solutions.industries.healthcare.title'),
-      description: t('solutions.industries.healthcare.description'),
-      features: [
-        t('solutions.industries.healthcare.feature1'),
-        t('solutions.industries.healthcare.feature2'),
-        t('solutions.industries.healthcare.feature3'),
-      ],
-    },
-    {
-      id: 6,
-      icon: <Sparkles className="h-8 w-8" />,
-      title: t('solutions.industries.startup.title'),
-      description: t('solutions.industries.startup.description'),
-      features: [
-        t('solutions.industries.startup.feature1'),
-        t('solutions.industries.startup.feature2'),
-        t('solutions.industries.startup.feature3'),
-      ],
-    },
-  ];
+  // Transform data to add example features for display
+  const solutionsWithFeatures = solutions.map(solution => ({
+    ...solution,
+    features: [
+      t(`solutions.industries.${solution.title.toLowerCase().replace(/\s+/g, '')}.feature1`) || 'Streamlined operations',
+      t(`solutions.industries.${solution.title.toLowerCase().replace(/\s+/g, '')}.feature2`) || 'Increased efficiency',
+      t(`solutions.industries.${solution.title.toLowerCase().replace(/\s+/g, '')}.feature3`) || 'Advanced security'
+    ]
+  })) as Solution[];
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -102,33 +51,13 @@ const Solutions = () => {
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {industries.map((industry) => (
-                <div key={industry.id} className="metal-card group">
-                  <div className="p-8">
-                    <div className="w-16 h-16 flex items-center justify-center rounded-lg mb-6 text-white bg-gradient-to-r from-primary to-blue-600 transition-transform group-hover:scale-110">
-                      {industry.icon}
-                    </div>
-                    <h3 className="text-xl font-semibold mb-4">{industry.title}</h3>
-                    <p className="text-muted-foreground mb-6">{industry.description}</p>
-                    
-                    <div className="space-y-3 mb-6">
-                      {industry.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-start">
-                          <CheckCircle className="h-5 w-5 text-primary mt-0.5 mr-2 flex-shrink-0" />
-                          <span className="text-muted-foreground">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                    
-                    <a className="inline-flex items-center text-primary font-medium group-hover:underline">
-                      {t('solutions.learnMore')}
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {isLoading ? (
+              <div className="flex justify-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+              </div>
+            ) : (
+              <SolutionsGrid solutions={solutionsWithFeatures} />
+            )}
           </div>
         </section>
 

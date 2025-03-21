@@ -1,10 +1,13 @@
 
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { useQuery } from '@tanstack/react-query';
-import { ExternalLink, ArrowRight, Filter } from 'lucide-react';
+import PageHero from '@/components/PageHero';
+import ProjectsGrid from '@/components/portfolio/ProjectsGrid';
+import TestimonialCard from '@/components/portfolio/TestimonialCard';
+import { ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Tabs,
@@ -12,84 +15,39 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import PageHero from '@/components/PageHero';
+import { fetchProjects } from '@/utils/supabaseQueries';
 
 const Portfolio = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  
+  // Fetch projects from Supabase
+  const { data: projects = [], isLoading } = useQuery({
+    queryKey: ['projects', language],
+    queryFn: () => fetchProjects(language),
+  });
+  
+  // Categories based on the data
+  const categories = ['web', 'mobile', 'branding', 'marketing'];
 
-  // In a real application, you would fetch this from your database
-  const projects = [
-    {
-      id: 1,
-      title: t('portfolio.projects.p1.title'),
-      description: t('portfolio.projects.p1.description'),
-      image: 'https://assets.iderdex.com/newwork/new-work-1.jpg',
-      category: 'web',
-      link: '#',
-    },
-    {
-      id: 2,
-      title: t('portfolio.projects.p2.title'),
-      description: t('portfolio.projects.p2.description'),
-      image: 'https://assets.iderdex.com/newwork/new-work-2.jpg',
-      category: 'branding',
-      link: '#',
-    },
-    {
-      id: 3,
-      title: t('portfolio.projects.p3.title'),
-      description: t('portfolio.projects.p3.description'),
-      image: 'https://assets.iderdex.com/newwork/new-work-3.jpg',
-      category: 'mobile',
-      link: '#',
-    },
-    {
-      id: 4,
-      title: t('portfolio.projects.p4.title'),
-      description: t('portfolio.projects.p4.description'),
-      image: 'https://assets.iderdex.com/newwork/new-work-4.jpg',
-      category: 'web',
-      link: '#',
-    },
-    {
-      id: 5,
-      title: t('portfolio.projects.p5.title'),
-      description: t('portfolio.projects.p5.description'),
-      image: 'https://assets.iderdex.com/newwork/new-work-5.jpg',
-      category: 'marketing',
-      link: '#',
-    },
-    {
-      id: 6,
-      title: t('portfolio.projects.p6.title'),
-      description: t('portfolio.projects.p6.description'),
-      image: 'https://assets.iderdex.com/newwork/new-work-6.jpg',
-      category: 'web',
-      link: '#',
-    },
-  ];
-
+  // Sample testimonials
   const testimonials = [
     {
       id: 1,
       name: 'Sarah Johnson',
       company: 'TechCorp Inc.',
       quote: t('portfolio.testimonials.t1.quote'),
-      image: 'https://assets.iderdex.com/newwork/new-work-7.jpg',
     },
     {
       id: 2,
       name: 'Michael Chen',
       company: 'GrowthLabs',
       quote: t('portfolio.testimonials.t2.quote'),
-      image: 'https://assets.iderdex.com/newwork/new-work-1.jpg',
     },
     {
       id: 3,
       name: 'Emma Williams',
       company: 'Retail Solutions',
       quote: t('portfolio.testimonials.t3.quote'),
-      image: 'https://assets.iderdex.com/newwork/new-work-2.jpg',
     },
   ];
 
@@ -118,52 +76,37 @@ const Portfolio = () => {
               <div className="flex justify-center">
                 <TabsList>
                   <TabsTrigger value="all">All</TabsTrigger>
-                  <TabsTrigger value="web">Web Development</TabsTrigger>
-                  <TabsTrigger value="mobile">Mobile Apps</TabsTrigger>
-                  <TabsTrigger value="branding">Branding</TabsTrigger>
-                  <TabsTrigger value="marketing">Marketing</TabsTrigger>
+                  {categories.map(category => (
+                    <TabsTrigger key={category} value={category}>
+                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                    </TabsTrigger>
+                  ))}
                 </TabsList>
               </div>
               
               <TabsContent value="all" className="mt-8">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {projects.map((project) => (
-                    <ProjectCard key={project.id} project={project} />
-                  ))}
-                </div>
+                {isLoading ? (
+                  <div className="flex justify-center py-12">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                  </div>
+                ) : (
+                  <ProjectsGrid projects={projects} />
+                )}
               </TabsContent>
               
-              <TabsContent value="web" className="mt-8">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {projects.filter(p => p.category === 'web').map((project) => (
-                    <ProjectCard key={project.id} project={project} />
-                  ))}
-                </div>
-              </TabsContent>
-              
-              <TabsContent value="mobile" className="mt-8">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {projects.filter(p => p.category === 'mobile').map((project) => (
-                    <ProjectCard key={project.id} project={project} />
-                  ))}
-                </div>
-              </TabsContent>
-              
-              <TabsContent value="branding" className="mt-8">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {projects.filter(p => p.category === 'branding').map((project) => (
-                    <ProjectCard key={project.id} project={project} />
-                  ))}
-                </div>
-              </TabsContent>
-              
-              <TabsContent value="marketing" className="mt-8">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {projects.filter(p => p.category === 'marketing').map((project) => (
-                    <ProjectCard key={project.id} project={project} />
-                  ))}
-                </div>
-              </TabsContent>
+              {categories.map(category => (
+                <TabsContent key={category} value={category} className="mt-8">
+                  {isLoading ? (
+                    <div className="flex justify-center py-12">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                    </div>
+                  ) : (
+                    <ProjectsGrid 
+                      projects={projects.filter(p => p.category === category)} 
+                    />
+                  )}
+                </TabsContent>
+              ))}
             </Tabs>
           </div>
         </section>
@@ -180,25 +123,12 @@ const Portfolio = () => {
             
             <div className="grid md:grid-cols-3 gap-8">
               {testimonials.map((testimonial) => (
-                <div key={testimonial.id} className="metal-card p-8">
-                  <div className="flex items-center mb-6">
-                    <svg className="text-primary h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                    </svg>
-                  </div>
-                  <p className="text-muted-foreground mb-6 italic">"{testimonial.quote}"</p>
-                  <div className="flex items-center">
-                    <div className="mr-4">
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
-                        {testimonial.name.charAt(0)}
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold">{testimonial.name}</h4>
-                      <p className="text-sm text-muted-foreground">{testimonial.company}</p>
-                    </div>
-                  </div>
-                </div>
+                <TestimonialCard 
+                  key={testimonial.id}
+                  name={testimonial.name}
+                  company={testimonial.company}
+                  quote={testimonial.quote}
+                />
               ))}
             </div>
           </div>
@@ -235,33 +165,6 @@ const Portfolio = () => {
         </section>
       </main>
       <Footer />
-    </div>
-  );
-};
-
-const ProjectCard = ({ project }) => {
-  const { t } = useLanguage();
-  
-  return (
-    <div className="metal-card overflow-hidden group">
-      <div className="aspect-w-16 aspect-h-9">
-        <img 
-          src={project.image} 
-          alt={project.title} 
-          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-        />
-      </div>
-      <div className="p-6">
-        <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-        <p className="text-muted-foreground mb-4 line-clamp-2">{project.description}</p>
-        <a 
-          href={project.link} 
-          className="inline-flex items-center text-primary font-medium group-hover:underline"
-        >
-          {t('portfolio.viewProject')}
-          <ExternalLink className="ml-2 h-4 w-4" />
-        </a>
-      </div>
     </div>
   );
 };

@@ -1,65 +1,27 @@
 
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { useQuery } from '@tanstack/react-query';
-import { Laptop, PenTool, BarChart, Smartphone, Globe, MonitorSmartphone, Lightbulb, ExternalLink } from 'lucide-react';
+import PageHero from '@/components/PageHero';
+import { Lightbulb } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import PageHero from '@/components/PageHero';
+import ServicesGrid from '@/components/services/ServicesGrid';
+import { fetchServices } from '@/utils/supabaseQueries';
 
 const Services = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { toast } = useToast();
 
-  // In a real application, you would fetch this from your database
-  const services = [
-    {
-      id: 1,
-      icon: <Globe className="h-8 w-8" />,
-      title: t('services.web.title'),
-      description: t('services.web.description'),
-      color: 'from-blue-600 to-blue-800 dark:from-blue-500 dark:to-blue-700',
-    },
-    {
-      id: 2,
-      icon: <PenTool className="h-8 w-8" />,
-      title: t('services.design.title'),
-      description: t('services.design.description'),
-      color: 'from-purple-600 to-purple-800 dark:from-purple-500 dark:to-purple-700',
-    },
-    {
-      id: 3,
-      icon: <BarChart className="h-8 w-8" />,
-      title: t('services.marketing.title'),
-      description: t('services.marketing.description'),
-      color: 'from-green-600 to-green-800 dark:from-green-500 dark:to-green-700',
-    },
-    {
-      id: 4,
-      icon: <Smartphone className="h-8 w-8" />,
-      title: t('services.mobile.title'),
-      description: t('services.mobile.description'),
-      color: 'from-orange-600 to-orange-800 dark:from-orange-500 dark:to-orange-700',
-    },
-    {
-      id: 5,
-      icon: <Laptop className="h-8 w-8" />,
-      title: t('services.ai.title'),
-      description: t('services.ai.description'),
-      color: 'from-indigo-600 to-indigo-800 dark:from-indigo-500 dark:to-indigo-700',
-    },
-    {
-      id: 6,
-      icon: <MonitorSmartphone className="h-8 w-8" />,
-      title: t('services.ecommerce.title'),
-      description: t('services.ecommerce.description'),
-      color: 'from-pink-600 to-pink-800 dark:from-pink-500 dark:to-pink-700',
-    },
-  ];
+  // Fetch services from Supabase
+  const { data: services = [], isLoading } = useQuery({
+    queryKey: ['services', language],
+    queryFn: () => fetchServices(language),
+  });
 
-  const handleServiceClick = (serviceId: number) => {
+  const handleServiceClick = (serviceId: string) => {
     toast({
       title: t('services.toast.title'),
       description: t('services.toast.description'),
@@ -87,23 +49,13 @@ const Services = () => {
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {services.map((service) => (
-                <div key={service.id} className="metal-card group cursor-pointer" onClick={() => handleServiceClick(service.id)}>
-                  <div className="p-8">
-                    <div className={`w-16 h-16 flex items-center justify-center rounded-lg mb-6 text-white bg-gradient-to-r ${service.color} transition-transform group-hover:scale-110`}>
-                      {service.icon}
-                    </div>
-                    <h3 className="text-xl font-semibold mb-4">{service.title}</h3>
-                    <p className="text-muted-foreground mb-6">{service.description}</p>
-                    <a className="inline-flex items-center text-primary font-medium group-hover:underline">
-                      {t('services.learnMore')}
-                      <ExternalLink className="ml-2 h-4 w-4" />
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {isLoading ? (
+              <div className="flex justify-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+              </div>
+            ) : (
+              <ServicesGrid services={services} onServiceClick={handleServiceClick} />
+            )}
           </div>
         </section>
 
