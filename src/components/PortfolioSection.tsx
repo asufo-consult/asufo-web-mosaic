@@ -22,7 +22,7 @@ const PortfolioSection: React.FC = () => {
     },
     {
       title: 'AI Integration',
-      image: '/portfolio-2.jpg',
+      image: 'https://assets.iderdex.com/newwork/new-work-2.jpg',
       description: 'Integration of AI-powered recommendation engine for a content platform to improve user engagement.',
       link: '#',
       facts: [
@@ -33,7 +33,7 @@ const PortfolioSection: React.FC = () => {
     },
     {
       title: 'Marketing Campaign',
-      image: '/portfolio-3.jpg',
+      image: 'https://assets.iderdex.com/newwork/new-work-3.jpg',
       description: 'Multimedia marketing campaign for a product launch, including web, social media, and print materials.',
       link: '#',
       facts: [
