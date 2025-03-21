@@ -69,7 +69,7 @@ const HeroSection: React.FC = () => {
             </a>
             
             <a 
-              href="https://tidycal.com" 
+              href="https://tidycal.com/blu7/30min-video-agilecoach" 
               target="_blank" 
               rel="noopener noreferrer"
               className="btn-secondary"
