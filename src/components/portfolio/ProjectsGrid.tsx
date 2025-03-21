@@ -7,6 +7,8 @@ interface ProjectsGridProps {
 }
 
 const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
+  console.log("Projects in grid:", projects); // Debugging
+
   if (!projects || projects.length === 0) {
     return <div className="py-8 text-center text-muted-foreground">No projects found.</div>;
   }

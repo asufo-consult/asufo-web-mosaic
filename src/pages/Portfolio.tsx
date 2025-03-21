@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
@@ -16,16 +16,30 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import { fetchProjects } from '@/utils/supabaseQueries';
+import { toast } from '@/components/ui/use-toast';
 
 const Portfolio = () => {
   const { t, language } = useLanguage();
   
-  // Fetch projects from Supabase
-  const { data: projects = [], isLoading } = useQuery({
+  // Fetch projects from Supabase with proper error handling
+  const { data: projects = [], isLoading, error } = useQuery({
     queryKey: ['projects', language],
     queryFn: () => fetchProjects(language),
   });
   
+  useEffect(() => {
+    console.log("Fetched projects:", projects); // Debugging
+    
+    if (error) {
+      console.error("Error fetching projects:", error);
+      toast({
+        title: "Error loading projects",
+        description: "There was a problem loading the projects. Please try again later.",
+        variant: "destructive",
+      });
+    }
+  }, [projects, error]);
+
   // Categories based on the data
   const categories = ['web', 'mobile', 'branding', 'marketing'];
 
@@ -90,7 +104,13 @@ const Portfolio = () => {
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
                   </div>
                 ) : (
-                  <ProjectsGrid projects={projects} />
+                  <>
+                    {projects && projects.length > 0 ? (
+                      <ProjectsGrid projects={projects} />
+                    ) : (
+                      <div className="py-8 text-center text-muted-foreground">No projects found.</div>
+                    )}
+                  </>
                 )}
               </TabsContent>
               
@@ -101,9 +121,15 @@ const Portfolio = () => {
                       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
                     </div>
                   ) : (
-                    <ProjectsGrid 
-                      projects={projects.filter(p => p.category === category)} 
-                    />
+                    <>
+                      {projects && projects.length > 0 ? (
+                        <ProjectsGrid 
+                          projects={projects.filter(p => p.category === category)} 
+                        />
+                      ) : (
+                        <div className="py-8 text-center text-muted-foreground">No projects found for this category.</div>
+                      )}
+                    </>
                   )}
                 </TabsContent>
               ))}

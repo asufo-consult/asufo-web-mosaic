@@ -2,6 +2,8 @@
 import { supabase } from '@/integrations/supabase/client';
 
 export const fetchProjects = async (language = 'en') => {
+  console.log("Fetching projects with language:", language);
+  
   const { data, error } = await supabase
     .from('projects')
     .select('*, project_facts(*)')
@@ -11,9 +13,10 @@ export const fetchProjects = async (language = 'en') => {
   
   if (error) {
     console.error('Error fetching projects:', error);
-    return [];
+    throw error;
   }
   
+  console.log("Projects data from Supabase:", data);
   return data || [];
 };
 
@@ -28,13 +31,15 @@ export const fetchProjectsByCategory = async (category: string, language = 'en')
   
   if (error) {
     console.error(`Error fetching ${category} projects:`, error);
-    return [];
+    throw error;
   }
   
   return data || [];
 };
 
 export const fetchServices = async (language = 'en') => {
+  console.log("Fetching services with language:", language);
+  
   const { data, error } = await supabase
     .from('services')
     .select('*')
@@ -44,13 +49,16 @@ export const fetchServices = async (language = 'en') => {
   
   if (error) {
     console.error('Error fetching services:', error);
-    return [];
+    throw error;
   }
   
+  console.log("Services data from Supabase:", data);
   return data || [];
 };
 
 export const fetchSolutions = async (language = 'en') => {
+  console.log("Fetching solutions with language:", language);
+  
   const { data, error } = await supabase
     .from('solutions')
     .select('*')
@@ -60,8 +68,9 @@ export const fetchSolutions = async (language = 'en') => {
   
   if (error) {
     console.error('Error fetching solutions:', error);
-    return [];
+    throw error;
   }
   
+  console.log("Solutions data from Supabase:", data);
   return data || [];
 };
