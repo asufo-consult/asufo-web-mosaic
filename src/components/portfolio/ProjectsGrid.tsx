@@ -1,16 +1,20 @@
 
 import React from 'react';
 import ProjectCard, { Project } from './ProjectCard';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface ProjectsGridProps {
   projects: Project[];
 }
 
 const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
+  const { t } = useLanguage();
   console.log("Projects in grid:", projects); // Debugging
 
   if (!projects || projects.length === 0) {
-    return <div className="py-8 text-center text-muted-foreground">No projects found. Please add some projects to the database.</div>;
+    return <div className="py-8 text-center text-muted-foreground">
+      {t('portfolio.noProjects')}
+    </div>;
   }
   
   return (

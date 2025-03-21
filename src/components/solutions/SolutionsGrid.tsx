@@ -1,17 +1,22 @@
 
 import React from 'react';
 import SolutionCard, { Solution } from './SolutionCard';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface SolutionsGridProps {
   solutions: Solution[];
 }
 
 const SolutionsGrid: React.FC<SolutionsGridProps> = ({ solutions }) => {
+  const { t } = useLanguage();
+  
   // Debugging
   console.log("Solutions in grid:", solutions);
   
   if (!solutions || solutions.length === 0) {
-    return <div className="py-8 text-center text-muted-foreground">No solutions found. Please add some solutions to the database.</div>;
+    return <div className="py-8 text-center text-muted-foreground">
+      {t('solutions.noSolutions')}
+    </div>;
   }
   
   return (
