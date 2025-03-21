@@ -114,8 +114,8 @@ const Contact = () => {
                 <p className="text-muted-foreground mb-4">
                   {t('contact.email.description')}
                 </p>
-                <a href="mailto:info@asufoconsult.com" className="text-primary font-medium hover:underline">
-                  info@asufoconsult.com
+                <a href="mailto:info@asufo.com" className="text-primary font-medium hover:underline">
+                  info[@]asufo.com
                 </a>
               </div>
               
@@ -127,8 +127,8 @@ const Contact = () => {
                 <p className="text-muted-foreground mb-4">
                   {t('contact.phone.description')}
                 </p>
-                <a href="tel:+491234567890" className="text-primary font-medium hover:underline">
-                  +49 123 456 7890
+                <a href="tel:+4915563116316" className="text-primary font-medium hover:underline">
+                  +49 (155) 6311 6316
                 </a>
               </div>
               
@@ -141,8 +141,8 @@ const Contact = () => {
                   {t('contact.office.description')}
                 </p>
                 <address className="not-italic text-primary font-medium">
-                  Musterstraße 123<br />
-                  10115 Berlin, Germany
+                  Gifhorner Strasse 77<br />
+                  38112 Braunschweig, Germany
                 </address>
               </div>
             </div>
@@ -270,7 +270,7 @@ const Contact = () => {
                   
                   <div className="mt-6 pt-6 border-t border-metal/20 dark:border-white/10">
                     <a 
-                      href="https://tidycal.com" 
+                      href="https://tidycal.com/blu7/30min-video-agilecoach" 
                       target="_blank" 
                       rel="noreferrer noopener"
                       className="flex items-center text-primary font-medium hover:underline"
