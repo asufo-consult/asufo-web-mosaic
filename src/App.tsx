@@ -17,6 +17,7 @@ import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
 import Cookies from "./pages/Cookies";
 import Admin from "./pages/Admin";
+import Auth from "./pages/Auth";
 import ServicesAdmin from "./pages/admin/ServicesAdmin";
 import SolutionsAdmin from "./pages/admin/SolutionsAdmin";
 import ProjectsAdmin from "./pages/admin/ProjectsAdmin";
@@ -43,6 +44,7 @@ const App = () => (
               <Route path="/imprint" element={<Imprint />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/cookies" element={<Cookies />} />
+              <Route path="/auth" element={<Auth />} />
               
               {/* Admin Routes */}
               <Route path="/admin" element={<Admin />} />

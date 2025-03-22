@@ -1,14 +1,47 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Settings, Server, Lightbulb, Package, MessageSquare, Mail } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from '@/hooks/use-toast';
 
 const Admin: React.FC = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
+  
+  // Admin access check
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        toast({
+          title: "Authentication required",
+          description: "Please login to access the admin area",
+          variant: "destructive"
+        });
+        navigate('/auth');
+        return;
+      }
+      
+      // Check if user has admin privileges (matches the specific UUID)
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user?.id !== 'a9fbd4b2-ae39-419f-91de-fd6382aa9b77') {
+        toast({
+          title: "Unauthorized",
+          description: "You do not have permission to access the admin area",
+          variant: "destructive"
+        });
+        navigate('/');
+      }
+    };
+    
+    checkAuth();
+  }, [navigate]);
 
   return (
     <div className="flex min-h-screen flex-col">
