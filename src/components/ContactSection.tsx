@@ -165,8 +165,8 @@ const ContactSection: React.FC = () => {
                 </div>
                 <div className="ml-4">
                   <h4 className="text-lg font-medium">Email</h4>
-                  <a href="mailto:contact@asufo-consult.com" className="text-muted-foreground hover:text-primary transition-colors">
-                    contact@asufo-consult.com
+                  <a href="mailto:contact@asufo.com" className="text-muted-foreground hover:text-primary transition-colors">
+                    contact@asufo.com
                   </a>
                 </div>
               </div>
@@ -177,8 +177,8 @@ const ContactSection: React.FC = () => {
                 </div>
                 <div className="ml-4">
                   <h4 className="text-lg font-medium">Phone</h4>
-                  <a href="tel:+491234567890" className="text-muted-foreground hover:text-primary transition-colors">
-                    +49 123 456 7890
+                  <a href="tel:++4915563116316" className="text-muted-foreground hover:text-primary transition-colors">
+                    +49 (155) 6311 6316
                   </a>
                 </div>
               </div>
@@ -190,8 +190,8 @@ const ContactSection: React.FC = () => {
                 <div className="ml-4">
                   <h4 className="text-lg font-medium">Address</h4>
                   <p className="text-muted-foreground">
-                    Musterstraße 123<br />
-                    12345 Musterstadt<br />
+                    Gifhorner Strasse 77<br />
+                    38112 Braunschweig<br />
                     Germany
                   </p>
                 </div>
