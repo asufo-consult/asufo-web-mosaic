@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import ThemeToggle from './ThemeToggle';
 import LanguageToggle from './LanguageToggle';
-import { Menu, X, Calendar } from 'lucide-react';
+import { Menu, X, Calendar, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -71,6 +71,11 @@ const Navbar: React.FC = () => {
             <div className="hidden md:flex items-center space-x-2">
               <ThemeToggle />
               <LanguageToggle />
+              <Link to="/admin" className="ml-2">
+                <Button variant="outline" size="icon" className="h-9 w-9">
+                  <Settings className="h-4 w-4" />
+                </Button>
+              </Link>
             </div>
             
             {/* Mobile menu button */}
@@ -139,11 +144,19 @@ const Navbar: React.FC = () => {
             >
               {t('nav.contact')}
             </Link>
+            <Link 
+              to="/admin" 
+              onClick={() => setIsMenuOpen(false)}
+              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-secondary hover:text-primary transition-all"
+            >
+              <Settings className="inline-block mr-2 h-4 w-4" />
+              Admin
+            </Link>
           </div>
           <div className="px-5 py-4 border-t border-metal/10 dark:border-white/10">
             <div className="flex items-center justify-between">
               <a 
-                href="https://tidycal.com" 
+                href="https://tidycal.com/blu7/30min-video-agilecoach" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center text-sm font-medium btn-primary"

@@ -16,6 +16,10 @@ import Solutions from "./pages/Solutions";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
 import Cookies from "./pages/Cookies";
+import Admin from "./pages/Admin";
+import ServicesAdmin from "./pages/admin/ServicesAdmin";
+import SolutionsAdmin from "./pages/admin/SolutionsAdmin";
+import ProjectsAdmin from "./pages/admin/ProjectsAdmin";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +41,13 @@ const App = () => (
               <Route path="/imprint" element={<Imprint />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/cookies" element={<Cookies />} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/services" element={<ServicesAdmin />} />
+              <Route path="/admin/solutions" element={<SolutionsAdmin />} />
+              <Route path="/admin/projects" element={<ProjectsAdmin />} />
+              
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
