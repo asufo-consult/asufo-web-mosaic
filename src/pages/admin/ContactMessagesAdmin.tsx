@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { MessageSquare, Search, Trash2, Check, X, ExternalLink } from 'lucide-react';
+import { MessageSquare, Search, Trash2, Check, X, ExternalLink, Mail } from 'lucide-react';
 import { 
   Table, 
   TableBody, 
@@ -43,7 +42,6 @@ const ContactMessagesAdmin: React.FC = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [messageToDelete, setMessageToDelete] = useState(null);
 
-  // Fetch contact messages
   const { data: messages = [], refetch, isLoading } = useQuery({
     queryKey: ['contactMessages'],
     queryFn: async () => {
@@ -61,7 +59,6 @@ const ContactMessagesAdmin: React.FC = () => {
     }
   });
 
-  // Filter messages based on search term and status
   const filteredMessages = messages.filter(message => {
     const matchesSearch = 
       message.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -73,7 +70,6 @@ const ContactMessagesAdmin: React.FC = () => {
     return matchesSearch && matchesStatus;
   });
 
-  // Handle message status change
   const handleStatusChange = async (messageId, newStatus) => {
     try {
       const { error } = await supabase
@@ -91,7 +87,6 @@ const ContactMessagesAdmin: React.FC = () => {
     }
   };
 
-  // Handle message deletion
   const handleDeleteMessage = async () => {
     if (!messageToDelete) return;
     
@@ -113,7 +108,6 @@ const ContactMessagesAdmin: React.FC = () => {
     }
   };
 
-  // Format date for display
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('en-US', {
@@ -125,7 +119,6 @@ const ContactMessagesAdmin: React.FC = () => {
     }).format(date);
   };
 
-  // Get status badge
   const getStatusBadge = (status) => {
     switch (status) {
       case 'new':
@@ -133,7 +126,7 @@ const ContactMessagesAdmin: React.FC = () => {
       case 'read':
         return <Badge variant="secondary">Read</Badge>;
       case 'replied':
-        return <Badge variant="success" className="bg-green-500">Replied</Badge>;
+        return <Badge variant="default" className="bg-green-500">Replied</Badge>;
       case 'spam':
         return <Badge variant="destructive">Spam</Badge>;
       default:
@@ -279,7 +272,6 @@ const ContactMessagesAdmin: React.FC = () => {
         )}
       </div>
 
-      {/* View Message Dialog */}
       <Dialog open={isViewMessageOpen} onOpenChange={setIsViewMessageOpen}>
         <DialogContent className="sm:max-w-2xl">
           <DialogHeader>
@@ -378,7 +370,6 @@ const ContactMessagesAdmin: React.FC = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent>
           <DialogHeader>
