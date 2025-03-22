@@ -6,7 +6,6 @@ import { toast } from '@/hooks/use-toast';
 import { Mail, Plus, Search, Trash2, CheckCircle, XCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -35,7 +34,7 @@ const SubscribersAdmin: React.FC = () => {
     queryKey: ['subscribers'],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('subscribers')
+        .from('newsletter_subscribers')
         .select('*')
         .order('created_at', { ascending: false });
       
@@ -48,7 +47,7 @@ const SubscribersAdmin: React.FC = () => {
   const addMutation = useMutation({
     mutationFn: async (subscriber: typeof newSubscriber) => {
       const { error } = await supabase
-        .from('subscribers')
+        .from('newsletter_subscribers')
         .insert({
           ...subscriber,
           active: true,
@@ -83,7 +82,7 @@ const SubscribersAdmin: React.FC = () => {
   const toggleActiveMutation = useMutation({
     mutationFn: async ({ id, active }: { id: string; active: boolean }) => {
       const { error } = await supabase
-        .from('subscribers')
+        .from('newsletter_subscribers')
         .update({ active, updated_at: new Date().toISOString() })
         .eq('id', id);
       
@@ -109,7 +108,7 @@ const SubscribersAdmin: React.FC = () => {
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase
-        .from('subscribers')
+        .from('newsletter_subscribers')
         .delete()
         .eq('id', id);
       
