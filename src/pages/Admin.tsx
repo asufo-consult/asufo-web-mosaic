@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Settings, Server, Lightbulb, Package } from 'lucide-react';
+import { Settings, Server, Lightbulb, Package, MessageSquare, Mail } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -67,6 +67,36 @@ const Admin: React.FC = () => {
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
                     Add, edit, or remove projects in your portfolio.
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+            
+            <Link to="/admin/contact-messages" className="group">
+              <Card className="h-full transition-all hover:shadow-md">
+                <CardHeader>
+                  <MessageSquare className="h-8 w-8 mb-2 text-primary" />
+                  <CardTitle>Contact Messages</CardTitle>
+                  <CardDescription>Manage contact form submissions</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    View and respond to messages from the contact form.
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+            
+            <Link to="/admin/subscribers" className="group">
+              <Card className="h-full transition-all hover:shadow-md">
+                <CardHeader>
+                  <Mail className="h-8 w-8 mb-2 text-primary" />
+                  <CardTitle>Newsletter Subscribers</CardTitle>
+                  <CardDescription>Manage email subscribers</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    View and manage newsletter subscribers.
                   </p>
                 </CardContent>
               </Card>
